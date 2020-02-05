@@ -328,7 +328,7 @@
                 if(!angular.isDefined($scope.fullEditMode)) {
                     var source = _.pick($scope.eventObj, ['id','shortName', 'displayName', 'organizationId', 'location',
                         'description', 'websiteUrl', 'externalUrl', 'termsAndConditionsUrl', 'privacyPolicyUrl', 'imageUrl', 'fileBlobId', 'formattedBegin','type',
-                        'formattedEnd', 'geolocation', 'locales']);
+                        'formattedEnd', 'geolocation', 'locales','frontPage']);
                     angular.extend($scope.obj, source);
                     var beginDateTime = moment(source['formattedBegin']);
                     var endDateTime = moment(source['formattedEnd']);
@@ -344,6 +344,8 @@
                     if(!$scope.obj.geolocation) {
                         $scope.obj.geolocation = {timeZone: $scope.eventObj.timeZone, latitude: $scope.eventObj.latitude, longitude: $scope.eventObj.longitude};
                     }
+                    console.log('Je suis ici!!!!!!!!!!!!!!!!!!');
+                    console.log('Valeur frontpage '+ $scope.obj['frontPage'] );
                 }
 
                 LocationService.getTimezones().then(function(res) {
@@ -453,6 +455,15 @@
                         $scope.updateLocation($scope.obj.location);
                     }
                 });
+                
+                $scope.$watch('obj.frontPage', function(checkBoxState) {
+                	console.log("Valeur checkbox !!!!!!!!!!!!");
+                	console.log(checkBoxState);
+                	$scope.obj['frontPage'] = checkBoxState;
+                	console.log("Nouvelle valeur de frontpage dans le scope ", $scope.obj['frontPage'] );
+                  
+                });
+
 
                 $scope.updateURL = function(eventName) {
                     if(!angular.isDefined(eventName) || eventName === '') {

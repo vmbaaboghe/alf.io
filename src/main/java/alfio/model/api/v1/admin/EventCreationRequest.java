@@ -100,7 +100,8 @@ public class EventCreationRequest{
             new LocationDescriptor(timezone, location.getCoordinate().getLatitude(), location.getCoordinate().getLongitude(), null),
             locales,
             toAdditionalFields(orEmpty(additionalInfo)),
-            emptyList()  // TODO improve API
+            emptyList(),
+            "N"// TODO improve API
         );
     }
 
@@ -151,7 +152,8 @@ public class EventCreationRequest{
             null,
             locales,
             toAdditionalFields(orEmpty(additionalInfo)),
-            emptyList()  // TODO improve API
+            emptyList(),
+            original.getFrontPage()// TODO improve API
         );
     }
 

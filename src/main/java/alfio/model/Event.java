@@ -68,6 +68,7 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
     private final String currency;
     private final boolean vatIncluded;
     private final BigDecimal vat;
+    private final String frontPage;
     private final List<PaymentProxy> allowedPaymentProxies;
 
     @JsonIgnore
@@ -107,7 +108,8 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
                  @Column("src_price_cts") int srcPriceInCents,
                  @Column("vat_status") PriceContainer.VatStatus vatStatus,
                  @Column("version") String version,
-                 @Column("status") Status status) {
+                 @Column("status") Status status,
+                 @Column("front_page") String frontPage) {
 
         super(id, organizationId);
         this.type = type;
@@ -122,6 +124,7 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
         final ZoneId zoneId = TimeZone.getTimeZone(timeZone).toZoneId();
 
         this.shortName = shortName;
+        this.frontPage = frontPage;
         this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
