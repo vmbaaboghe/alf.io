@@ -29,7 +29,7 @@ public class BasicEventInfo implements DateValidity {
     private final String fileBlobId;
     private final String displayName;
     private final String location;
-
+   
     private final String timeZone;
     private final DatesWithTimeZoneOffset datesWithOffset;
     private final boolean sameDay;
@@ -37,4 +37,8 @@ public class BasicEventInfo implements DateValidity {
     private final Map<String, String> formattedBeginTime; //the hour/minute component
     private final Map<String, String> formattedEndDate;
     private final Map<String, String> formattedEndTime;
+    private final boolean frontPage;
+    private final String startingPrice;
+    private final ImageSize imageSize; 
+    
 }
