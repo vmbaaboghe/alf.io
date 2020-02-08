@@ -109,6 +109,7 @@ public class EventModification {
         this.privacyPolicyUrl = privacyPolicyUrl;
         this.imageUrl = imageUrl;
         this.fileBlobId = fileBlobId;
+        System.out.println(" Shortname " + shortName);
         this.shortName = shortName;
         this.displayName = displayName;
         this.organizationId = organizationId;

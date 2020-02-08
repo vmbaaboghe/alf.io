@@ -101,7 +101,6 @@ public class EventApiV2Controller {
         
         ImageSize tempImageSize = new ImageSize("https://www.sortiraparis.com/images/80/1665/131790-wu-tang-clan-en-concert-au-zenith-de-paris-en-juillet-2015.jpg","https://resizeimage.net/mypic/v6MWiKFXZ8VCL8mV/6oTSo/131790-wu-tang-clan-en-concert.jpg","https://resizeimage.net/mypic/v6MWiKFXZ8VCL8mV/XBjnw/131790-wu-tang-clan-en-concert.jpg");
 
-
         var events = eventManager.getPublishedEvents()
             .stream()
             .map(e -> {

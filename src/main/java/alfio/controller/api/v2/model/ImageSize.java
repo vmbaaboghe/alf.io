@@ -1,6 +1,5 @@
 package alfio.controller.api.v2.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

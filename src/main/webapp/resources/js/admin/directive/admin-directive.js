@@ -328,7 +328,7 @@
                 if(!angular.isDefined($scope.fullEditMode)) {
                     var source = _.pick($scope.eventObj, ['id','shortName', 'displayName', 'organizationId', 'location',
                         'description', 'websiteUrl', 'externalUrl', 'termsAndConditionsUrl', 'privacyPolicyUrl', 'imageUrl', 'fileBlobId', 'formattedBegin','type',
-                        'formattedEnd', 'geolocation', 'locales', 'frontPage']);
+                        'formattedEnd', 'geolocation', 'locales','frontPage']);
                     angular.extend($scope.obj, source);
                     var beginDateTime = moment(source['formattedBegin']);
                     var endDateTime = moment(source['formattedEnd']);
@@ -351,9 +351,7 @@
                 });
                 
                 $scope.$watch('obj.frontPage', function(checkBoxState) {
-                	console.log(checkBoxState);
                 	$scope.obj['frontPage'] = checkBoxState;
-
                 });
 
                 $scope.selectedLanguages = {
@@ -459,6 +457,15 @@
                         $scope.updateLocation($scope.obj.location);
                     }
                 });
+                
+                $scope.$watch('obj.frontPage', function(checkBoxState) {
+                	console.log("Valeur checkbox !!!!!!!!!!!!");
+                	console.log(checkBoxState);
+                	$scope.obj['frontPage'] = checkBoxState;
+                	console.log("Nouvelle valeur de frontpage dans le scope ", $scope.obj['frontPage'] );
+                  
+                });
+
 
                 $scope.updateURL = function(eventName) {
                     if(!angular.isDefined(eventName) || eventName === '') {

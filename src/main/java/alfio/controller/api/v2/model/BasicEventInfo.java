@@ -29,7 +29,7 @@ public class BasicEventInfo implements DateValidity {
     private final String fileBlobId;
     private final String displayName;
     private final String location;
-
+   
     private final String timeZone;
     private final DatesWithTimeZoneOffset datesWithOffset;
     private final boolean sameDay;

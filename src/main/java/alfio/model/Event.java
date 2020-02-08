@@ -124,6 +124,7 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
         final ZoneId zoneId = TimeZone.getTimeZone(timeZone).toZoneId();
 
         this.shortName = shortName;
+        this.frontPage = frontPage;
         this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -144,7 +145,6 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
         this.srcPriceCts = srcPriceInCents;
         this.version = version;
         this.status = status;
-        this.frontPage = frontPage;
     }
 
     public BigDecimal getRegularPrice() {
