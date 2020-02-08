@@ -328,7 +328,7 @@
                 if(!angular.isDefined($scope.fullEditMode)) {
                     var source = _.pick($scope.eventObj, ['id','shortName', 'displayName', 'organizationId', 'location',
                         'description', 'websiteUrl', 'externalUrl', 'termsAndConditionsUrl', 'privacyPolicyUrl', 'imageUrl', 'fileBlobId', 'formattedBegin','type',
-                        'formattedEnd', 'geolocation', 'locales']);
+                        'formattedEnd', 'geolocation', 'locales', 'frontPage']);
                     angular.extend($scope.obj, source);
                     var beginDateTime = moment(source['formattedBegin']);
                     var endDateTime = moment(source['formattedEnd']);
@@ -348,6 +348,12 @@
 
                 LocationService.getTimezones().then(function(res) {
                     $scope.timezones = res.data;
+                });
+                
+                $scope.$watch('obj.frontPage', function(checkBoxState) {
+                	console.log(checkBoxState);
+                	$scope.obj['frontPage'] = checkBoxState;
+
                 });
 
                 $scope.selectedLanguages = {

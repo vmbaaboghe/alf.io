@@ -50,6 +50,7 @@ public class EventModification {
     private final String latitude;
     private final String longitude;
     private final String zoneId;
+    private final String frontPage;
     private final Map<String, String> description;
     private final DateTimeModification begin;
     private final DateTimeModification end;
@@ -97,7 +98,9 @@ public class EventModification {
                              @JsonProperty("geolocation") LocationDescriptor locationDescriptor,
                              @JsonProperty("locales") int locales,
                              @JsonProperty("ticketFields") List<AdditionalField> ticketFields,
-                             @JsonProperty("additionalServices") List<AdditionalService> additionalServices) {
+                             @JsonProperty("additionalServices") List<AdditionalService> additionalServices,
+                             @JsonProperty("frontPage") String frontPage) {
+    	
         this.id = id;
         this.eventType = eventType;
         this.websiteUrl = websiteUrl;
@@ -128,6 +131,7 @@ public class EventModification {
         this.freeOfCharge = freeOfCharge;
         this.locales = locales;
         this.ticketFields = ticketFields;
+        this.frontPage = frontPage;
     }
 
     public int getPriceInCents() {

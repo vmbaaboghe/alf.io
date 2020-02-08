@@ -98,6 +98,9 @@ public class EventApiV2Controller {
     public ResponseEntity<List<BasicEventInfo>> listEvents() {
 
         var contentLanguages = i18nManager.getSupportedLanguages();
+        
+        ImageSize tempImageSize = new ImageSize("https://www.sortiraparis.com/images/80/1665/131790-wu-tang-clan-en-concert-au-zenith-de-paris-en-juillet-2015.jpg","https://resizeimage.net/mypic/v6MWiKFXZ8VCL8mV/6oTSo/131790-wu-tang-clan-en-concert.jpg","https://resizeimage.net/mypic/v6MWiKFXZ8VCL8mV/XBjnw/131790-wu-tang-clan-en-concert.jpg");
+
 
         var events = eventManager.getPublishedEvents()
             .stream()
@@ -106,7 +109,7 @@ public class EventApiV2Controller {
                 var formattedDates = Formatters.getFormattedDates(e, messageSource, contentLanguages);
                 return new BasicEventInfo(e.getShortName(), e.getFileBlobId(), e.getDisplayName(), e.getLocation(),
                     e.getTimeZone(), DatesWithTimeZoneOffset.fromEvent(e), e.getSameDay(), formattedDates.beginDate, formattedDates.beginTime,
-                    formattedDates.endDate, formattedDates.endTime);
+                    formattedDates.endDate, formattedDates.endTime, "Y".equalsIgnoreCase(e.getFrontPage()), "A partir de 10K", tempImageSize);
             })
             .collect(Collectors.toList());
         return new ResponseEntity<>(events, getCorsHeaders(), HttpStatus.OK);

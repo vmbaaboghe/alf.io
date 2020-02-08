@@ -79,6 +79,7 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
     private final PriceContainer.VatStatus vatStatus;
     private final String version;
     private final Status status;
+    private final String frontPage;
 
 
 
@@ -107,7 +108,8 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
                  @Column("src_price_cts") int srcPriceInCents,
                  @Column("vat_status") PriceContainer.VatStatus vatStatus,
                  @Column("version") String version,
-                 @Column("status") Status status) {
+                 @Column("status") Status status,
+                 @Column("front_page") String frontPage) {
 
         super(id, organizationId);
         this.type = type;
@@ -142,6 +144,7 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
         this.srcPriceCts = srcPriceInCents;
         this.version = version;
         this.status = status;
+        this.frontPage = frontPage;
     }
 
     public BigDecimal getRegularPrice() {
