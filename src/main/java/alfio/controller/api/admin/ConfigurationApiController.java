@@ -17,6 +17,7 @@
 package alfio.controller.api.admin;
 
 import alfio.controller.api.support.TicketHelper;
+import alfio.controller.api.v2.model.InfoLabel;
 import alfio.manager.system.ConfigurationLevel;
 import alfio.manager.system.ConfigurationManager;
 import alfio.model.modification.ConfigurationModification;
@@ -68,7 +69,7 @@ public class ConfigurationApiController {
     public Map<ConfigurationKeys.SettingCategory, List<Configuration>> loadOrganizationConfiguration(@PathVariable("organizationId") int organizationId, Principal principal) {
         return configurationManager.loadOrganizationConfig(organizationId, principal.getName());
     }
-
+    
     @PostMapping(value = "/organizations/{organizationId}/update")
     public boolean updateOrganizationConfiguration(@PathVariable("organizationId") int organizationId,
                                                                      @RequestBody Map<ConfigurationKeys.SettingCategory, List<ConfigurationModification>> input, Principal principal) {
@@ -107,12 +108,14 @@ public class ConfigurationApiController {
         configurationManager.saveCategoryConfiguration(categoryId, eventId, input.values().stream().flatMap(Collection::stream).collect(Collectors.toList()), principal.getName());
         return true;
     }
+    
+    
 
     @GetMapping(value = "/events/{eventId}/categories/{categoryId}/load")
     public Map<ConfigurationKeys.SettingCategory, List<Configuration>> loadCategoryConfiguration(@PathVariable("eventId") int eventId, @PathVariable("categoryId") int categoryId, Principal principal) {
         return configurationManager.loadCategoryConfig(eventId, categoryId, principal.getName());
     }
-
+   
     @DeleteMapping(value = "/organization/{organizationId}/key/{key}")
     public boolean deleteOrganizationLevelKey(@PathVariable("organizationId") int organizationId, @PathVariable("key") ConfigurationKeys key, Principal principal) {
         configurationManager.deleteOrganizationLevelByKey(key.getValue(), organizationId, principal.getName());

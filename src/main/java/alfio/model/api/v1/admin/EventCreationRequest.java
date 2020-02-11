@@ -101,7 +101,8 @@ public class EventCreationRequest{
             locales,
             toAdditionalFields(orEmpty(additionalInfo)),
             emptyList(),
-            "N"// TODO improve API
+            "N",// TODO improve API
+            Event.EventCategory.EVENEMENTS.getCategoryId()
         );
     }
 
@@ -153,7 +154,9 @@ public class EventCreationRequest{
             locales,
             toAdditionalFields(orEmpty(additionalInfo)),
             emptyList(),
-            original.getFrontPage()// TODO improve API
+            original.getFrontPage(),
+            original.getCategoryId()// TODO improve API,
+            
         );
     }
 

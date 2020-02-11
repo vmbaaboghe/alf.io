@@ -51,6 +51,21 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
     public enum EventType {
         INTERNAL, EXTERNAL
     }
+    
+    public enum EventCategory {
+        EVENEMENTS(0), CONCERT(1), FESTIVAL(2), SPORT(3), THEATRE(4), SOIREES(5) ;
+    	Integer categoryId;
+
+		EventCategory(int id) {
+			this.categoryId = id;
+		}
+		
+		public Integer getCategoryId() {
+			return this.categoryId;
+		}
+    }
+    
+    
     private final EventType type;
     private final String shortName;
     private final String displayName;
@@ -80,6 +95,7 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
     private final String version;
     private final Status status;
     private final String frontPage;
+    private final Integer categoryId;
 
 
 
@@ -109,7 +125,8 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
                  @Column("vat_status") PriceContainer.VatStatus vatStatus,
                  @Column("version") String version,
                  @Column("status") Status status,
-                 @Column("front_page") String frontPage) {
+                 @Column("front_page") String frontPage,
+                 @Column("category_id") Integer categoryId) {
 
         super(id, organizationId);
         this.type = type;
@@ -135,6 +152,7 @@ public class Event extends EventAndOrganizationId implements EventHiddenFieldCon
         this.vatIncluded = vatStatus == PriceContainer.VatStatus.INCLUDED;
         this.vat = vat;
         this.privateKey = privateKey;
+        this.categoryId = categoryId;
 
         this.locales = locales;
         this.allowedPaymentProxies = Arrays.stream(Optional.ofNullable(allowedPaymentProxies).orElse("").split(","))

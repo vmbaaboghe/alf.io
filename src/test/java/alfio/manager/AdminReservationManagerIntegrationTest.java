@@ -294,7 +294,7 @@ public class AdminReservationManagerIntegrationTest extends BaseIntegrationTest 
         List<Attendee> allAttendees = new ArrayList<>();
         List<TicketsInfo> ticketsInfoList = existingCategories.stream()
             .map(existingCategory -> {
-                Category category = new Category(existingCategory.getId(), existingCategory.getName(), existingCategory.getPrice());
+            	Category category = new Category(existingCategory.getId(), existingCategory.getName(), existingCategory.getPrice());
                 List<Attendee> attendees = generateAttendees(attendeesIterator.next());
                 allAttendees.addAll(attendees);
                 return new TicketsInfo(category, attendees, addSeatsIfNotAvailable, false);

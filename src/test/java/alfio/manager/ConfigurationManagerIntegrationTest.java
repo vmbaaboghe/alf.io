@@ -111,7 +111,8 @@ public class ConfigurationManagerIntegrationTest extends BaseIntegrationTest {
             "muh location", "0.0", "0.0", ZoneId.systemDefault().getId(), desc,
             new DateTimeModification(LocalDate.now(), LocalTime.now()),
             new DateTimeModification(LocalDate.now(), LocalTime.now()),
-            BigDecimal.TEN, "CHF", 20, BigDecimal.ONE, true, null, ticketsCategory, false, new LocationDescriptor("","","",""), 7, null, null);
+            BigDecimal.TEN, "CHF", 20, BigDecimal.ONE, true, null, ticketsCategory, 
+            false, new LocationDescriptor("","","",""), 7, null, null, "N", Event.EventCategory.EVENEMENTS.getCategoryId());
         eventManager.createEvent(em);
 
         event = eventManager.getSingleEvent("eventShortName", "test");

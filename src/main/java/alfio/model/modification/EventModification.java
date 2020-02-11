@@ -51,6 +51,7 @@ public class EventModification {
     private final String longitude;
     private final String zoneId;
     private final String frontPage;
+    private final Integer categoryId;
     private final Map<String, String> description;
     private final DateTimeModification begin;
     private final DateTimeModification end;
@@ -99,7 +100,8 @@ public class EventModification {
                              @JsonProperty("locales") int locales,
                              @JsonProperty("ticketFields") List<AdditionalField> ticketFields,
                              @JsonProperty("additionalServices") List<AdditionalService> additionalServices,
-                             @JsonProperty("frontPage") String frontPage) {
+                             @JsonProperty("frontPage") String frontPage,
+                             @JsonProperty("categoryId") Integer categoryId) {
     	
         this.id = id;
         this.eventType = eventType;
@@ -133,6 +135,7 @@ public class EventModification {
         this.locales = locales;
         this.ticketFields = ticketFields;
         this.frontPage = frontPage;
+        this.categoryId = categoryId;
     }
 
     public int getPriceInCents() {

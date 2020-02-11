@@ -231,7 +231,8 @@ public enum ConfigurationKeys {
         TRANSLATIONS("Translations"),
         PASS_INTEGRATION("Pass Integration"),
         WAITING_LIST("Waiting List"),
-        IMPORT_ATTENDEE("Import Attendees");
+        IMPORT_ATTENDEE("Import Attendees"),
+        EVENT_CATEGORY("Event Category Type");
 
         private final String description;
         SettingCategory(String description) {

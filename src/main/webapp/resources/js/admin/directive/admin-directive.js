@@ -324,11 +324,21 @@
             controller: function EditEventHeaderController($scope, $stateParams, LocationService, FileUploadService, UtilsService, EventService, ConfigurationService) {
 
                 $scope.baseUrl = ConfigurationService.getBaseUrl();
+                $scope.eventCategories =  [
+		                    { id: 0, label: 'EVENEMENTS' },
+		                    { id: 1, label: 'CONCERT' },
+		                    { id: 2, label: 'FESTIVAL' },
+		                    { id: 3, label: 'SPORT' },
+		                    { id: 4, label: 'THEATRE' },
+		                    { id: 5, label: 'SOIREES'}
+                ];
+                
+                console.log("!!!!!! Event Categories !!!!!!!!!", $scope.eventCategories);
 
                 if(!angular.isDefined($scope.fullEditMode)) {
                     var source = _.pick($scope.eventObj, ['id','shortName', 'displayName', 'organizationId', 'location',
                         'description', 'websiteUrl', 'externalUrl', 'termsAndConditionsUrl', 'privacyPolicyUrl', 'imageUrl', 'fileBlobId', 'formattedBegin','type',
-                        'formattedEnd', 'geolocation', 'locales','frontPage']);
+                        'formattedEnd', 'geolocation', 'locales','frontPage', 'categoryId']);
                     angular.extend($scope.obj, source);
                     var beginDateTime = moment(source['formattedBegin']);
                     var endDateTime = moment(source['formattedEnd']);
@@ -459,10 +469,8 @@
                 });
                 
                 $scope.$watch('obj.frontPage', function(checkBoxState) {
-                	console.log("Valeur checkbox !!!!!!!!!!!!");
                 	console.log(checkBoxState);
                 	$scope.obj['frontPage'] = checkBoxState;
-                	console.log("Nouvelle valeur de frontpage dans le scope ", $scope.obj['frontPage'] );
                   
                 });
 
@@ -1152,6 +1160,7 @@
 
                     ConfigurationService.loadCurrentConfigurationContext(OrganizationService, EventService).then(function(res) {
                         ctrl.organizations = res.organizations;
+                        console.log(" List des organisations !!!! ", res.organizations);
                         ctrl.settingCategories = [
                             {
                                 id: 'GENERAL',

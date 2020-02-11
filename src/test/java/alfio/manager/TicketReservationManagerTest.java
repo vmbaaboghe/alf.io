@@ -1028,7 +1028,9 @@ class TicketReservationManagerTest {
             event.getVatStatus(),
             event.getVersion(),
             event.getStatus(),
-            event.getFrontPage()
+            event.getFrontPage(),
+            event.getCategoryId()
+            
         );
     }
 

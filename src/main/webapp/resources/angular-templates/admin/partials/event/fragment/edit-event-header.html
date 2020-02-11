@@ -14,6 +14,11 @@
                 <select data-ng-model="obj.organizationId" name="organizationId" id="organizationId" class="form-control" required data-ng-options="organization.id as organization.name for organization in organizations"></select>
                 <field-error data-form-obj="editEventHeader" data-field-obj="editEventHeader.organizationId" data-show-existing-errors="showExistingErrors"></field-error>
             </div>
+            <div class="form-group" bs-form-error="editEventHeader.categoryId">
+                <label for="categoryId">Event Category</label>
+                <select data-ng-model="obj.categoryId" name="categoryId" id="categoryId" class="form-control" required data-ng-options="eventCategory.id as eventCategory.label for eventCategory in eventCategories"></select>
+                <field-error data-form-obj="editEventHeader" data-field-obj="editEventHeader.categoryId" data-show-existing-errors="showExistingErrors"></field-error>
+            </div>
             <div class="form-group" bs-form-error="editEventHeader.location">
                 <label for="location">Event Location</label>
                 <textarea data-ng-model="obj.location" name="location" id="location" class="form-control" required data-ng-minlength="10" data-ng-change="updateLocation(obj.location)" data-ng-model-options="{ updateOn: 'blur'}" placeholder="Please enter the address of the Location. This will be used for displaying the map on the event page."></textarea>

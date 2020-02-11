@@ -16,10 +16,12 @@
  */
 package alfio.manager.system;
 
+import alfio.controller.api.v2.model.InfoLabel;
 import alfio.manager.system.ConfigurationLevels.CategoryLevel;
 import alfio.manager.system.ConfigurationLevels.EventLevel;
 import alfio.manager.system.ConfigurationLevels.OrganizationLevel;
 import alfio.manager.user.UserManager;
+import alfio.model.Event;
 import alfio.model.EventAndOrganizationId;
 import alfio.model.TicketReservation;
 import alfio.model.modification.ConfigurationModification;
@@ -27,6 +29,7 @@ import alfio.model.system.Configuration;
 import alfio.model.system.Configuration.*;
 import alfio.model.system.ConfigurationKeyValuePathLevel;
 import alfio.model.system.ConfigurationKeys;
+import alfio.model.system.ConfigurationKeys.SettingCategory;
 import alfio.model.system.ConfigurationPathLevel;
 import alfio.model.transaction.PaymentMethod;
 import alfio.model.transaction.PaymentProxy;
@@ -285,6 +288,7 @@ public class ConfigurationManager {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         }
     }
+  
 
     public String getSingleConfigForEvent(int eventId, String keyAsString, String username) {
         User user = userManager.findUserByUsername(username);
@@ -634,5 +638,7 @@ public class ConfigurationManager {
     public Map<Integer, String> getAllCategoriesAndValueWith(EventAndOrganizationId event, ConfigurationKeys key) {
         return configurationRepository.getAllCategoriesAndValueWith(event.getOrganizationId(), event.getId(), key);
     }
+
+	
 
 }

@@ -154,10 +154,15 @@ public class WaitingQueueProcessorIntegrationTest extends BaseIntegrationTest {
         Pair<String, Event> pair = initSoldOutEvent(true);
         Event event = pair.getRight();
         EventModification eventModification = new EventModification(event.getId(), event.getType(), event.getWebsiteUrl(),
-            event.getExternalUrl(), event.getTermsAndConditionsUrl(), event.getPrivacyPolicyUrl(), event.getImageUrl(), event.getFileBlobId(), event.getShortName(), event.getDisplayName(),
-            event.getOrganizationId(), event.getLocation(), event.getLatitude(), event.getLongitude(), event.getZoneId().getId(), emptyMap(), fromZonedDateTime(event.getBegin()), fromZonedDateTime(event.getEnd()),
-            event.getRegularPrice(), event.getCurrency(), eventRepository.countExistingTickets(event.getId()) + 1, event.getVat(), event.isVatIncluded(), event.getAllowedPaymentProxies(),
-            Collections.emptyList(), event.isFreeOfCharge(), null, event.getLocales(), Collections.emptyList(), Collections.emptyList());
+            event.getExternalUrl(), event.getTermsAndConditionsUrl(), event.getPrivacyPolicyUrl(), event.getImageUrl(), 
+            event.getFileBlobId(), event.getShortName(), event.getDisplayName(),
+            event.getOrganizationId(), event.getLocation(), event.getLatitude(), 
+            event.getLongitude(), event.getZoneId().getId(), emptyMap(), fromZonedDateTime(event.getBegin()),
+            fromZonedDateTime(event.getEnd()),
+            event.getRegularPrice(), event.getCurrency(), eventRepository.countExistingTickets(event.getId()) + 1,
+            event.getVat(), event.isVatIncluded(), event.getAllowedPaymentProxies(),
+            Collections.emptyList(), event.isFreeOfCharge(), null, event.getLocales(), 
+            Collections.emptyList(), Collections.emptyList(), null, event.getCategoryId());
         eventManager.updateEventPrices(event, eventModification, "admin");
         //that should create an additional "RELEASED" ticket
         waitingQueueSubscriptionProcessor.distributeAvailableSeats(event);
@@ -173,10 +178,15 @@ public class WaitingQueueProcessorIntegrationTest extends BaseIntegrationTest {
         Pair<String, Event> pair = initSoldOutEvent(false);
         Event event = pair.getRight();
         EventModification eventModification = new EventModification(event.getId(), event.getType(), event.getWebsiteUrl(),
-            event.getExternalUrl(), event.getTermsAndConditionsUrl(), event.getPrivacyPolicyUrl(), event.getImageUrl(), event.getFileBlobId(), event.getShortName(), event.getDisplayName(),
-            event.getOrganizationId(), event.getLocation(), event.getLatitude(), event.getLongitude(), event.getZoneId().getId(), emptyMap(), fromZonedDateTime(event.getBegin()), fromZonedDateTime(event.getEnd()),
-            event.getRegularPrice(), event.getCurrency(), eventRepository.countExistingTickets(event.getId()) + 1, event.getVat(), event.isVatIncluded(), event.getAllowedPaymentProxies(),
-            Collections.emptyList(), event.isFreeOfCharge(), null, event.getLocales(), Collections.emptyList(), Collections.emptyList());
+            event.getExternalUrl(), event.getTermsAndConditionsUrl(), event.getPrivacyPolicyUrl(), event.getImageUrl(),
+            event.getFileBlobId(), event.getShortName(), event.getDisplayName(),
+            event.getOrganizationId(), event.getLocation(), event.getLatitude(), 
+            event.getLongitude(), event.getZoneId().getId(), emptyMap(), fromZonedDateTime(event.getBegin()),
+            fromZonedDateTime(event.getEnd()),
+            event.getRegularPrice(), event.getCurrency(), eventRepository.countExistingTickets(event.getId()) + 1, 
+            event.getVat(), event.isVatIncluded(), event.getAllowedPaymentProxies(),
+            Collections.emptyList(), event.isFreeOfCharge(), null, event.getLocales(),
+            Collections.emptyList(), Collections.emptyList(), "N", event.getCategoryId());
         eventManager.updateEventPrices(event, eventModification, "admin");
         //that should create an additional "RELEASED" ticket, but it won't be linked to any category, so the following call won't have any effect
         waitingQueueSubscriptionProcessor.distributeAvailableSeats(event);
