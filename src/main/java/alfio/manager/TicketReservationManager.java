@@ -979,6 +979,8 @@ public class TicketReservationManager {
      * Set the tickets attached to the reservation to the ACQUIRED state and the ticket reservation to the COMPLETE state. Additionally it will save email/fullName/billingaddress/userLanguage.
      */
     void completeReservation(PaymentSpecification spec, PaymentProxy paymentProxy, boolean sendReservationConfirmationEmail, boolean sendTickets) {
+    	
+    	System.out.println("TicketReservationManager - completeReservation");
         String reservationId = spec.getReservationId();
         int eventId = spec.getEvent().getId();
         final TicketReservation reservation = ticketReservationRepository.findReservationById(reservationId);
@@ -1000,6 +1002,7 @@ public class TicketReservationManager {
         }
 
         if(sendReservationConfirmationEmail) {
+        	System.out.println("TicketReservationManager - completeReservation - if sendReservationConfirmationEmail ");
             TicketReservation updatedReservation = ticketReservationRepository.findReservationById(reservationId);
             sendConfirmationEmail(spec.getEvent(), updatedReservation, locale);
             sendReservationCompleteEmailToOrganizer(spec.getEvent(), updatedReservation, locale);

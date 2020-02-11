@@ -87,6 +87,22 @@ public final class TemplateProcessor {
         };
     }
 
+    /**
+     * TODO Method to update
+     * @param language
+     * @param event
+     * @param ticketReservation
+     * @param ticket
+     * @param ticketCategory
+     * @param organization
+     * @param templateManager
+     * @param fileUploadManager
+     * @param reservationID
+     * @param os
+     * @param retrieveFieldValues
+     * @param extensionManager
+     * @throws IOException
+     */
     public static void renderPDFTicket(Locale language,
                                        Event event,
                                        TicketReservation ticketReservation,
@@ -104,10 +120,12 @@ public final class TemplateProcessor {
         Map<String, Object> model = TemplateResource.buildModelForTicketPDF(organization, event, ticketReservation, ticketCategory, ticket, imageData, reservationID,
             fields.stream().collect(Collectors.toMap(TicketFieldConfigurationDescriptionAndValue::getName, TicketFieldConfigurationDescriptionAndValue::getValueDescription)));
 
+        System.out.println("Here to Render PDF Ticket");
+        
         String page = templateManager.renderTemplate(event, TemplateResource.TICKET_PDF, model, language);
         renderToPdf(page, os, extensionManager, event);
     }
-
+    
     public static void renderToPdf(String page, OutputStream os, ExtensionManager extensionManager, Event event) throws IOException {
 
         if(extensionManager.handlePdfTransformation(page, event, os)) {

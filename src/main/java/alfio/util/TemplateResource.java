@@ -477,6 +477,8 @@ public enum TemplateResource {
                                                              Optional<ImageData> imageData,
                                                              String reservationId,
                                                              Map<String,String> additionalFields) {
+    	
+    	System.out.println("Here To Build One Ticket");
         String qrCodeText = ticket.ticketCode(event.getPrivateKey());
         //
         Map<String, Object> model = new HashMap<>();

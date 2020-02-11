@@ -474,7 +474,7 @@ public class ReservationApiV2Controller {
                                                                       @PathVariable("reservationId") String reservationId,
                                                                       @RequestParam("lang") String lang) {
 
-
+            
 
         var res = eventRepository.findOptionalByShortName(eventName).map(event ->
             ticketReservationManager.findById(reservationId).map(ticketReservation -> {

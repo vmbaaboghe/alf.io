@@ -78,7 +78,8 @@ public class AdminReservationApiController {
 
     @PutMapping("/event/{eventName}/{reservationId}/confirm")
     public Result<TicketReservationDescriptor> confirmReservation(@PathVariable("eventName") String eventName, @PathVariable("reservationId") String reservationId, Principal principal) {
-        return adminReservationManager.confirmReservation(eventName, reservationId, principal.getName(), AdminReservationModification.Notification.EMPTY)
+        System.out.println("AdminReservationApiController -  confirmReservation");
+    	return adminReservationManager.confirmReservation(eventName, reservationId, principal.getName(), AdminReservationModification.Notification.EMPTY)
             .map(triple -> toReservationDescriptor(reservationId, triple));
     }
 

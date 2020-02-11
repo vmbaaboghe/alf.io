@@ -132,6 +132,7 @@ public class TicketApiV2Controller {
     public ResponseEntity<Boolean> sendTicketByEmail(@PathVariable("eventName") String eventName,
                                                      @PathVariable("ticketIdentifier") String ticketIdentifier) {
 
+    	System.out.println("TicketApiV2Controller - sendTicketByEmail");
         return ticketReservationManager.fetchCompleteAndAssigned(eventName, ticketIdentifier).map(data -> {
             Event event = data.getLeft();
             TicketReservation reservation = data.getMiddle();

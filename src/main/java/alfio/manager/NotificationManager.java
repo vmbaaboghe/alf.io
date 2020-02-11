@@ -120,6 +120,7 @@ public class NotificationManager {
             payload -> TemplateProcessor.buildCreditNotePdf(payload.getLeft(), fileUploadManager, payload.getMiddle(), templateManager, payload.getRight(), extensionManager)));
         attachmentTransformer.put(Mailer.AttachmentIdentifier.PASSBOOK, passKitManager::getPass);
         Function<Ticket, List<TicketFieldConfigurationDescriptionAndValue>> retrieveFieldValues = EventUtil.retrieveFieldValues(ticketRepository, ticketFieldRepository, additionalServiceItemRepository);
+        System.out.println("NotificationManager - Constructor");
         attachmentTransformer.put(Mailer.AttachmentIdentifier.TICKET_PDF, generateTicketPDF(eventRepository, organizationRepository, configurationManager, fileUploadManager, templateManager, ticketReservationRepository, retrieveFieldValues, extensionManager));
     }
 
@@ -131,6 +132,9 @@ public class NotificationManager {
                                                                            TicketReservationRepository ticketReservationRepository,
                                                                            Function<Ticket, List<TicketFieldConfigurationDescriptionAndValue>> retrieveFieldValues,
                                                                            ExtensionManager extensionManager) {
+    	
+    	System.out.println("NotificationManager - generateTicketPDF");
+    	
         return model -> {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             Ticket ticket = Json.fromJson(model.get("ticket"), Ticket.class);
@@ -273,6 +277,7 @@ public class NotificationManager {
 
         AtomicInteger counter = new AtomicInteger();
 
+        log.info("Je suis ici pour les messages en attente");
         eventRepository.findAllActiveIds(ZonedDateTime.now(UTC))
             .stream()
             .flatMap(id -> emailMessageRepository.loadIdsWaitingForProcessing(id, now).stream())
@@ -310,7 +315,8 @@ public class NotificationManager {
 
     private void sendMessage(EventAndOrganizationId event, EmailMessage message) {
         String displayName = eventRepository.getDisplayNameById(message.getEventId());
-        mailer.send(event, displayName, message.getRecipient(), message.getCc(), message.getSubject(), message.getMessage(), Optional.empty(), decodeAttachments(message.getAttachments()));
+        log.warn("Ici vraiment j envoie le message"); 
+        //mailer.send(event, displayName, message.getRecipient(), message.getCc(), message.getSubject(), message.getMessage(), Optional.empty(), decodeAttachments(message.getAttachments()));
         emailMessageRepository.updateStatusToSent(message.getEventId(), message.getChecksum(), ZonedDateTime.now(UTC), Collections.singletonList(IN_PROCESS.name()));
     }
 
