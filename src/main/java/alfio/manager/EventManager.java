@@ -918,12 +918,26 @@ public class EventManager {
         return ticketRepository.findAllConfirmedForCSV(event.getId());
     }
 
-    public List<Event> getPublishedEvents() {
-        return getActiveEventsStream().filter(e -> e.getStatus() == Event.Status.PUBLIC).collect(toList());
+    public List<Event> getPublishedEvents(Integer category) {
+    	if(category == null) {
+    		return getActiveEventsStream().filter(e -> e.getStatus() == Event.Status.PUBLIC).collect(toList());	
+    	} else {
+    		return getActiveEventsStreamByCategory(category).filter(e -> e.getStatus() == Event.Status.PUBLIC).collect(toList());
+    	}
+        
     }
+    
+    private Stream<Event> getActiveEventsStreamByCategory(Integer category) {
+    	 return eventRepository.findEventsByCategory(category).stream()
+    	            .filter(e -> e.getEnd().truncatedTo(ChronoUnit.DAYS).plusDays(1).isAfter(ZonedDateTime.now(e.getZoneId()).truncatedTo(ChronoUnit.DAYS)));
+	}
 
-    public List<Event> getActiveEvents() {
+	public List<Event> getActiveEvents() {
         return getActiveEventsStream().collect(toList());
+    }
+    
+    public List<Event> getPastEvents(Integer categoryId) {
+    	return eventRepository.findPastEventsByCategory(categoryId);
     }
 
     private Stream<Event> getActiveEventsStream() {

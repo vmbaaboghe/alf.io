@@ -56,6 +56,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.Principal;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.function.Function;
@@ -101,7 +102,7 @@ public class EventApiV2Controller {
         
         ImageSize tempImageSize = new ImageSize("https://www.sortiraparis.com/images/80/1665/131790-wu-tang-clan-en-concert-au-zenith-de-paris-en-juillet-2015.jpg","https://resizeimage.net/mypic/v6MWiKFXZ8VCL8mV/6oTSo/131790-wu-tang-clan-en-concert.jpg","https://resizeimage.net/mypic/v6MWiKFXZ8VCL8mV/XBjnw/131790-wu-tang-clan-en-concert.jpg");
 
-        var events = eventManager.getPublishedEvents()
+        var events = eventManager.getPublishedEvents(null)
             .stream()
             .map(e -> {
                 var messageSource = messageSourceManager.getMessageSourceForEvent(e);
@@ -112,6 +113,41 @@ public class EventApiV2Controller {
             })
             .collect(Collectors.toList());
         return new ResponseEntity<>(events, getCorsHeaders(), HttpStatus.OK);
+    }
+    
+   @GetMapping("events/filtered/{categoryId}/{futureEvents}")
+   public ResponseEntity<List<BasicEventInfo>> listFilteredEvents(@PathVariable("categoryId") Integer categoryId, @PathVariable("futureEvents") Boolean futureEvents,  HttpSession session) {
+
+        var contentLanguages = i18nManager.getSupportedLanguages();
+
+        ImageSize tempImageSize = new ImageSize("https://www.sortiraparis.com/images/80/1665/131790-wu-tang-clan-en-concert-au-zenith-de-paris-en-juillet-2015.jpg","https://resizeimage.net/mypic/v6MWiKFXZ8VCL8mV/6oTSo/131790-wu-tang-clan-en-concert.jpg","https://resizeimage.net/mypic/v6MWiKFXZ8VCL8mV/XBjnw/131790-wu-tang-clan-en-concert.jpg");
+
+        if(futureEvents) {
+        	
+            var events = eventManager.getPublishedEvents(categoryId)
+                .stream()
+                .map(e -> {
+                    var messageSource = messageSourceManager.getMessageSourceForEvent(e);
+                    var formattedDates = Formatters.getFormattedDates(e, messageSource, contentLanguages);
+                    return new BasicEventInfo(e.getShortName(), e.getFileBlobId(), e.getDisplayName(), e.getLocation(),
+                        e.getTimeZone(), DatesWithTimeZoneOffset.fromEvent(e), e.getSameDay(), formattedDates.beginDate, formattedDates.beginTime,
+                        formattedDates.endDate, formattedDates.endTime, "Y".equalsIgnoreCase(e.getFrontPage()), "A partir de 10K", tempImageSize);
+                })
+                .collect(Collectors.toList());
+            return new ResponseEntity<>(events, getCorsHeaders(), HttpStatus.OK);
+        } else {
+        	var events = eventManager.getPastEvents(categoryId)
+                    .stream()
+                    .map(e -> {
+                        var messageSource = messageSourceManager.getMessageSourceForEvent(e);
+                        var formattedDates = Formatters.getFormattedDates(e, messageSource, contentLanguages);
+                        return new BasicEventInfo(e.getShortName(), e.getFileBlobId(), e.getDisplayName(), e.getLocation(),
+                            e.getTimeZone(), DatesWithTimeZoneOffset.fromEvent(e), e.getSameDay(), formattedDates.beginDate, formattedDates.beginTime,
+                            formattedDates.endDate, formattedDates.endTime, false, "A partir de 10K", tempImageSize);
+                    })
+                    .collect(Collectors.toList());
+                return new ResponseEntity<>(events, getCorsHeaders(), HttpStatus.OK);
+        }
     }
 
     @GetMapping("event/{eventName}")

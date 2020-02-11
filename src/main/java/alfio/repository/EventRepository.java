@@ -187,6 +187,14 @@ public interface EventRepository {
 
     @Query("select count(*) as total_attendees, COALESCE(SUM(CASE WHEN status = 'CHECKED_IN' THEN 1 ELSE 0 END), 0) as checked_in, CURRENT_TIMESTAMP as last_update from ticket where event_id = :eventId and status in("+TicketRepository.CONFIRMED+")")
     CheckInStatistics retrieveCheckInStatisticsForEvent(@Bind("eventId") int eventId);
+    
+    
+    @Query("select * from event where category_id = :categoryId and (end_ts < (SELECT NOW() - INTERVAL '2 DAY')) order by start_ts asc")
+    List<Event> findPastEventsByCategory(@Bind("categoryId") Integer categoryId);
+
+	@Query("select * from event where category_id = :categoryId and end_ts > now() order by start_ts asc")
+    List<Event> findEventsByCategory(@Bind("categoryId") Integer categoryId);
+    
 
 
 }

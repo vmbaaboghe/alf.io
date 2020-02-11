@@ -333,7 +333,6 @@
 		                    { id: 5, label: 'SOIREES'}
                 ];
                 
-                console.log("!!!!!! Event Categories !!!!!!!!!", $scope.eventCategories);
 
                 if(!angular.isDefined($scope.fullEditMode)) {
                     var source = _.pick($scope.eventObj, ['id','shortName', 'displayName', 'organizationId', 'location',

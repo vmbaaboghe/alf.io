@@ -36,6 +36,8 @@
                     <dd><a ng-href="{{eventPublicURL}}" target="_blank">{{eventPublicURL}}</a></dd>
                     <dt>Organized by</dt>
                     <dd>{{organization.name}} &lt;{{organization.email}}&gt;</dd>
+                    <dt>Category</dt>
+                    <dd>{{event.categoryLabel}}</dd>
                     <dt>Website URL</dt>
                     <dd><a href="{{event.websiteUrl}}" target="_blank">{{event.websiteUrl}}</a></dd>
                     <dt data-ng-if="!isInternal(event)">External URL</dt>
@@ -58,6 +60,7 @@
                     <dd>{{event.timeZone}}</dd>
                     <dt>Front Page</dt>
                     <dd>{{event.frontPage}}</dd>
+                   
                 </dl>
             </div>
             <div class="col-md-5 hidden-xs hidden-sm">
